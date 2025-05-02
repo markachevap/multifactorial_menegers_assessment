@@ -1,9 +1,9 @@
 чтобы скачать сайт и запустить его на ubuntu, вот это впишите в командную строку:
 
-git clone https://github.com/markachevap/multifactorial_menegers_assessment.git
-cd multifactorial_menegers_assessment
-chmod +x setup_ubuntu.sh
-./setup_ubuntu.sh
+        git clone https://github.com/markachevap/multifactorial_menegers_assessment.git
+        cd multifactorial_menegers_assessment
+        chmod +x setup_ubuntu.sh
+        ./setup_ubuntu.sh
 
 
 для windows:
