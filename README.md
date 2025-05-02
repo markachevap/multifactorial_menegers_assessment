@@ -7,6 +7,7 @@
 
 
 для windows:
+
             Сохраните файл setup_windows.bat в удобном месте
             Двойной клик по файлу setup_windows.bat
             Нажмите "Да" при запросе UAC
