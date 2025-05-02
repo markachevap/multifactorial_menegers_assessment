@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'manager_evaluation',
         'USER': 'django_user',
-        'PASSWORD': 'your_strong_password_here',
+        'PASSWORD': 'your_strong_password_here', #потом поменять можно
         'HOST': 'localhost',
         'PORT': '5432',
         'OPTIONS': {
