@@ -1,0 +1,8 @@
+{% extends "admin/base_site.html" %}
+
+{% block userlinks %}
+    {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}">Изменить пароль</a> /
+    {% endif %}
+    <a href="{% url 'admin:logout' %}">Выйти</a>
+{% endblock %}
