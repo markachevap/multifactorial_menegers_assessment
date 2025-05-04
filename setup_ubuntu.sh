@@ -12,11 +12,16 @@ pip install -r requirements.txt
 # Настройка базы данных
 sudo -u postgres psql -c "CREATE DATABASE manager_evaluation;"
 sudo -u postgres psql -c "CREATE USER django_user WITH PASSWORD 'strong_password';"
+sudo -u postgres psql -c "ALTER USER django_user WITH SUPERUSER;"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE manager_evaluation TO django_user;"
 
 # Миграции
-python manage.py migrate
-python manage.py collectstatic
+python backend/manage.py migrate
+python backend/manage.py collectstatic
+
+# Создание суперпользователя
+echo "Не пугайтесь, сейчас нужно создать своего пользователя (email можно выдумать, главное запомните все данные)"
+python manage.py createsuperuser
 
 echo "Установка завершена. Запустите сервер:"
 echo "source venv/bin/activate && python manage.py runserver"

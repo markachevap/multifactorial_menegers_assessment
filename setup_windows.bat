@@ -25,12 +25,13 @@ pip install -r requirements.txt
 
 echo Настройка базы данных PostgreSQL...
 psql -U postgres -c "CREATE DATABASE manager_evaluation;"
-psql -U postgres -c "CREATE USER django_user WITH PASSWORD 'really_STRONG_password';"
+psql -U postgres -c "CREATE USER django_user WITH PASSWORD 'strong_password';"
+psql -U postgres -c "ALTER USER django_user WITH SUPERUSER;"
 psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE manager_evaluation TO django_user;"
 
 echo Применение миграций...
-python manage.py migrate
-python manage.py collectstatic
+python backend/manage.py migrate
+python backend/manage.py collectstatic
 
 echo Создание суперпользователя...
 echo Не пугайтесь, сейчас нужно создать своего пользователя (email можно выдумать, главное запомните все данные)
