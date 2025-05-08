@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$d*v)u0fs(5oy4jem_43f6=_)yu-ah2)f6pel#gig$hnpo_3my
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'manager_evaluation',
         'USER': 'django_user',
         'PASSWORD': 'strong_password', 
-        'HOST': 'localhost',
+        'HOST': 'db', # имя сервиса в docker-compose
         'PORT': '5432',
         'OPTIONS': {
             'options': '-c search_path=public'
@@ -130,7 +130,8 @@ AUTH_USER_MODEL = 'employees.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
