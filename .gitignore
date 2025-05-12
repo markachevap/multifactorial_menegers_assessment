@@ -1,0 +1,6 @@
+.env
+*.sqlite3
+/venv/
+/staticfiles/
+__pycache__/
+*.pyc

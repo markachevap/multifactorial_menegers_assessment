@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Оценки менеджеров{% endblock %}
+{% block content %}
+<h2>Оценки менеджеров</h2>
+<button class="button" hx-get="{% url 'evaluation_create' %}" hx-target="#modal">Добавить оценку</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Менеджер</th>
+            <th>Период</th>
+            <th>Балл</th>
+            <th>Комментарии</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody id="evaluation-list">
+        {% for evaluation in evaluations %}
+        <tr>
+            <td>{{ evaluation.manager.username }}</td>
+            <td>{{ evaluation.period }}</td>
+            <td>{{ evaluation.total_score }}</td>
+            <td>{{ evaluation.comments|truncatewords:10 }}</td>
+            <td>
+                <button class="delete-button button" 
+                        hx-delete="{% url 'evaluation_delete' evaluation.pk %}"
+                        hx-confirm="Вы уверены, что хотите удалить эту оценку?"
+                        hx-target="body"
+                        hx-swap="outerHTML"
+                        hx-trigger="click"
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+                    Удалить
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Нет оценок</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div id="modal"></div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+    <h1>Тестовый заголовок</h1>
+    <div style="margin-bottom: 20px;">
+        <a href="{% url 'evaluation_list' %}" style="padding: 8px 16px; background: #3498db; color: #fff; text-decoration: none; border-radius: 4px;">Перейти к оценкам менеджеров</a>
+    </div>
+{% endblock %}
