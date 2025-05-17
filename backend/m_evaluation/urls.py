@@ -10,4 +10,5 @@ urlpatterns = [
     path('delete/<int:pk>/', EvaluationDeleteView.as_view(), name='evaluation_delete'),
     path('accounts/login/', LoginView.as_view(template_name='admin/login.html'), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('evaluations/', include('evaluations.urls')),
 ]

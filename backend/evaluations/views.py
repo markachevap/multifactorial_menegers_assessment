@@ -1,9 +1,12 @@
-from django.views.generic import ListView, CreateView, DeleteView
+from django.views.generic import ListView, CreateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .models import PerformanceEvaluation
+from .models import PerformanceEvaluation, FactorValue
 from employees.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .utils import calculate_evaluations
+from .forms import FactorValueForm, EvaluationPeriodForm
+from django.shortcuts import redirect
 
 class EvaluationListView(LoginRequiredMixin, ListView):
     model = PerformanceEvaluation
@@ -24,6 +27,11 @@ class EvaluationCreateView(LoginRequiredMixin, CreateView):
         context['managers'] = User.objects.filter(is_manager=True)
         return context
 
+    def post(self, request, *args, **kwargs):
+        period = request.POST.get('period')
+        calculate_evaluations(period)
+        return HttpResponseRedirect(self.success_url)
+
 class EvaluationDeleteView(LoginRequiredMixin, DeleteView):
     model = PerformanceEvaluation
     success_url = reverse_lazy('evaluation_list')
@@ -34,3 +42,19 @@ class EvaluationDeleteView(LoginRequiredMixin, DeleteView):
         if request.htmx:
             return HttpResponseRedirect(self.success_url)
         return super().delete(request, *args, **kwargs)
+
+class FactorValueCreateView(LoginRequiredMixin, CreateView):
+    model = FactorValue
+    form_class = FactorValueForm
+    template_name = 'evaluations/factor_value_form.html'
+    success_url = reverse_lazy('add_factor_value')
+
+class EvaluationRunView(LoginRequiredMixin, FormView):
+    form_class = EvaluationPeriodForm
+    template_name = 'evaluations/run_evaluation.html'
+    success_url = reverse_lazy('evaluation_list')
+
+    def form_valid(self, form):
+        period = form.cleaned_data['period']
+        calculate_evaluations(period)
+        return super().form_valid(form)

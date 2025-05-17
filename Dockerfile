@@ -25,6 +25,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Команда запуска
 CMD bash -c "\
+    python backend/manage.py makemigrations && \
     python backend/manage.py migrate && \
     python backend/manage.py collectstatic --noinput && \
     echo \"from django.contrib.auth import get_user_model; \

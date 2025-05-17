@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EvaluationWeights, PerformanceEvaluation
+from .models import EvaluationWeights, PerformanceEvaluation, EvaluationFactor, FactorValue
 from django.apps import AppConfig
 
 
@@ -22,3 +22,12 @@ class PerformanceEvaluationAdmin(admin.ModelAdmin):
     search_fields = ('manager__first_name', 'manager__last_name')
     readonly_fields = ('total_score',)
     ordering = ('-period',)
+
+@admin.register(EvaluationFactor)
+class EvaluationFactorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'weight')
+
+@admin.register(FactorValue)
+class FactorValueAdmin(admin.ModelAdmin):
+    list_display = ('manager', 'factor', 'period', 'value')
+    list_filter = ('period', 'factor', 'manager')

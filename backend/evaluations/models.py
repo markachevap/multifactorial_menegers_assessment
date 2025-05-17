@@ -26,3 +26,20 @@ class PerformanceEvaluation(models.Model):
         verbose_name = "Оценка эффективности"
         verbose_name_plural = "Оценки эффективности"
         unique_together = ['manager', 'period']
+
+class EvaluationFactor(models.Model):
+    name = models.CharField("Название фактора", max_length=100)
+    weight = models.FloatField("Вес", default=1.0)
+
+    def __str__(self):
+        return self.name
+
+
+class FactorValue(models.Model):
+    manager = models.ForeignKey(User, verbose_name="Менеджер", on_delete=models.CASCADE)
+    factor = models.ForeignKey(EvaluationFactor, verbose_name="Фактор", on_delete=models.CASCADE)
+    period = models.CharField("Период", max_length=20)
+    value = models.FloatField("Значение")
+
+    def __str__(self):
+        return f"{self.manager.username} - {self.factor.name} ({self.period})"
